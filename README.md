@@ -9,8 +9,7 @@ Claude Code 개인 기본 환경을 **한 폴더로 재현**하는 셋업 번들
 
 | 경로 | 설치 위치 | 용도 |
 |---|---|---|
-| `global-CLAUDE.md` | `~/.claude/CLAUDE.md` | 범용 개인 작업 원칙(언어·최소 diff·git 안전·보안 등) |
-| `rules/omc-agents.md` | `~/.claude/rules/omc-agents.md` | OMC 에이전트 라우팅 규칙(상시) |
+| `global-CLAUDE.md` | `~/.claude/CLAUDE.md` | 범용 개인 작업 원칙(언어·최소 diff·git 안전·보안·모델/토큰 규율 등) |
 | `skills/frontend-ui/` | `~/.claude/skills/frontend-ui/` | 프론트엔드/UI 작업 규칙(UI 작업 시 자동 트리거) |
 | `skills/repo-artifact-classify/` | `~/.claude/skills/repo-artifact-classify/` | 저장소 산출물 13분류 스킬 |
 | (외부) oh-my-claudecode | 플러그인 | 멀티에이전트 오케스트레이션 |
@@ -52,10 +51,7 @@ git clone https://github.com/Qnd1101/claude-setup.git
 - 기존 파일이 있으면 **덮어쓰기 전 기존 내용을 보여주고 확인**받는다.
 - 복사 후 존재·내용 일치 확인.
 
-### 2. 글로벌 룰
-`rules/*.md` → `~/.claude/rules/`로 복사.
-
-### 3. oh-my-claudecode(OMC)
+### 2. oh-my-claudecode(OMC)
 Claude Code 안에서:
 ```
 /plugin marketplace add Yeachan-Heo/oh-my-claudecode
@@ -65,7 +61,7 @@ Claude Code 안에서:
 - 이미 설치돼 있으면 `omc-setup` 스킬로 갱신만.
 - OMC 설치 시 `~/.claude/CLAUDE-omc.md`가 자동 생성됨(이 저장소에 포함 안 함).
 
-### 4. mattpocock/skills
+### 3. mattpocock/skills
 터미널(셸)에서:
 ```
 npx skills@latest add mattpocock/skills
@@ -73,15 +69,14 @@ npx skills@latest add mattpocock/skills
 - 마법사에서 원하는 스킬 + Claude Code 선택. **`setup-matt-pocock-skills` 반드시 선택**.
 - 이후 Claude Code에서 `/setup-matt-pocock-skills` 실행(이슈 트래커·라벨·문서 위치 설정).
 
-### 5. 로컬 스킬
+### 4. 로컬 스킬
 `skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사.
 - **frontend-ui** — 프론트엔드/UI 작업 규칙(4상태·반응형·접근성·검증). "컴포넌트/화면/CSS/반응형" 요청 시 자동 트리거. 백엔드·펌웨어 세션엔 로드 안 됨.
 - **repo-artifact-classify** — 저장소 산출물 13분류. "산출물 분류 / 이 파일 어디 / 저장소 정리" 요청 시 자동 트리거.
 - 확인: 새 세션 스킬 목록에 `frontend-ui`, `repo-artifact-classify` 노출.
 
-### 6. 최종 검증
+### 5. 최종 검증
 - `~/.claude/CLAUDE.md` 존재·내용
-- `~/.claude/rules/` 파일들
 - `/plugin` 목록에 OMC
 - 스킬 목록에 mattpocock 스킬 + `frontend-ui` + `repo-artifact-classify`
 - 셋업 요약 보고.
