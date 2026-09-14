@@ -10,10 +10,15 @@ Claude Code 개인 기본 환경을 **한 폴더로 재현**하는 셋업 번들
 | 경로 | 설치 위치 | 용도 |
 |---|---|---|
 | `global-CLAUDE.md` | `~/.claude/CLAUDE.md` | 범용 개인 작업 원칙(언어·최소 diff·git 안전·보안·모델/토큰 규율 등) |
+| `skills-manifest.md` | — | 이 PC에 설치된 스킬 전체 목록(51개)과 출처별 복원 명령 |
 | `skills/frontend-ui/` | `~/.claude/skills/frontend-ui/` | 프론트엔드/UI 작업 규칙(UI 작업 시 자동 트리거) |
 | `skills/repo-artifact-classify/` | `~/.claude/skills/repo-artifact-classify/` | 저장소 산출물 13분류 스킬 |
+| `skills/<그 외 8개>/` | `~/.claude/skills/<name>/` | upstream에서 삭제된 mattpocock 스킬 보관본(매니페스트 5절) |
 | (외부) oh-my-claudecode | 플러그인 | 멀티에이전트 오케스트레이션 |
 | (외부) mattpocock/skills | 스킬 | 엔지니어링 스킬 모음 |
+| (외부) vercel-labs/skills | 스킬 | `find-skills` — 스킬 검색·설치 |
+| (외부) bagelhole/DevOps-Security-Agent-Skills | 스킬 | 온프레미스 서버 운영·이중화(Linux·systemd·MongoDB·PostgreSQL·HAProxy·백업) |
+| (외부) github/awesome-copilot | 스킬 | `centos-linux-triage` — RHEL/Rocky/CentOS 장애 진단 |
 
 ---
 
@@ -61,24 +66,21 @@ Claude Code 안에서:
 - 이미 설치돼 있으면 `omc-setup` 스킬로 갱신만.
 - OMC 설치 시 `~/.claude/CLAUDE-omc.md`가 자동 생성됨(이 저장소에 포함 안 함).
 
-### 3. mattpocock/skills
-터미널(셸)에서:
-```
-npx skills@latest add mattpocock/skills
-```
-- 마법사에서 원하는 스킬 + Claude Code 선택. **`setup-matt-pocock-skills` 반드시 선택**.
-- 이후 Claude Code에서 `/setup-matt-pocock-skills` 실행(이슈 트래커·라벨·문서 위치 설정).
+### 3. 외부 스킬 (npx skills)
+터미널(셸)에서 **`skills-manifest.md`의 1~4절 명령을 순서대로 실행**한다. 출처별로 설치할 스킬이 `--skill`로 고정돼 있어 마법사 선택이 필요 없다.
+- mattpocock/skills 설치 후 Claude Code에서 `/setup-matt-pocock-skills` 실행(이슈 트래커·라벨·문서 위치 설정).
+- 전역(`-g`) 설치라 `~/.agents/skills/`에 파일이 놓이고 `~/.claude/skills/`에 심링크가 생긴다.
 
 ### 4. 로컬 스킬
-`skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사.
+`skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사(매니페스트 5절).
 - **frontend-ui** — 프론트엔드/UI 작업 규칙(4상태·반응형·접근성·검증). "컴포넌트/화면/CSS/반응형" 요청 시 자동 트리거. 백엔드·펌웨어 세션엔 로드 안 됨.
 - **repo-artifact-classify** — 저장소 산출물 13분류. "산출물 분류 / 이 파일 어디 / 저장소 정리" 요청 시 자동 트리거.
-- 확인: 새 세션 스킬 목록에 `frontend-ui`, `repo-artifact-classify` 노출.
+- 나머지 8개는 upstream에서 삭제된 mattpocock 스킬 보관본이라 복사로만 복원 가능.
 
 ### 5. 최종 검증
 - `~/.claude/CLAUDE.md` 존재·내용
 - `/plugin` 목록에 OMC
-- 스킬 목록에 mattpocock 스킬 + `frontend-ui` + `repo-artifact-classify`
+- `ls ~/.claude/skills | wc -l` → 51 (매니페스트 「검증」절)
 - 셋업 요약 보고.
 
 ---
@@ -86,6 +88,9 @@ npx skills@latest add mattpocock/skills
 ## 출처
 - oh-my-claudecode: https://github.com/Yeachan-Heo/oh-my-claudecode
 - mattpocock/skills: https://github.com/mattpocock/skills
+- vercel-labs/skills: https://github.com/vercel-labs/skills
+- bagelhole/DevOps-Security-Agent-Skills: https://github.com/bagelhole/DevOps-Security-Agent-Skills
+- github/awesome-copilot: https://github.com/github/awesome-copilot
 
 ## 주의
 - CLAUDE.md·rules는 **강제 정책이 아니라 컨텍스트**다. 명령·파일 접근을 실제로 차단하려면 `settings.json`의 `permissions.deny`나 PreToolUse hook을 쓴다.
