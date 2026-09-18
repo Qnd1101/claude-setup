@@ -74,12 +74,14 @@ Claude Code 안에서:
 ```
 - 확인: `/plugin` 목록에 `oh-my-claudecode@omc`, `/autopilot`·`/team` 명령 노출.
 - 이미 설치돼 있으면 `omc-setup` 스킬로 갱신만.
+- **user 스코프 한 번만 설치한다.** 프로젝트 `.claude/settings.json`에 `enabledPlugins`를 넣으면 같은 플러그인이 project 스코프로 한 번 더(다른 버전으로) 설치된다. 2026-09-18에 그렇게 생긴 4.15.7 중복본을 지우고 5.0.0 하나로 맞췄다.
 - OMC 설치 시 `~/.claude/CLAUDE-omc.md`가 자동 생성됨(이 저장소에 포함 안 함).
 
 ### 3. 외부 스킬 (npx skills)
 터미널(셸)에서 **`skills-manifest.md`의 1~6·8·9절 명령을 순서대로 실행**한다. 출처별로 설치할 스킬이 `--skill`로 고정돼 있어 마법사 선택이 필요 없다.
 - mattpocock/skills 설치 후 Claude Code에서 `/setup-matt-pocock-skills` 실행(이슈 트래커·라벨·문서 위치 설정).
 - 전역(`-g`) 설치라 `~/.agents/skills/`에 파일이 놓이고 `~/.claude/skills/`에 심링크가 생긴다.
+- mattpocock/skills는 **npx로만** 설치한다. 플러그인판(`mattpocock-skills@mattpocock`)은 npx본과 중복이라 쓰지 않는다(매니페스트 1절).
 
 ### 4. 로컬 스킬
 `skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사(매니페스트 7절).
@@ -88,7 +90,7 @@ Claude Code 안에서:
 
 ### 5. 최종 검증
 - `~/.claude/CLAUDE.md` 존재·내용
-- `/plugin` 목록에 OMC
+- `/plugin` 목록에 OMC 하나만(user 스코프, mattpocock 플러그인 없음)
 - `ls ~/.claude/skills | wc -l` → 57 (매니페스트 「검증」절)
 - 셋업 요약 보고.
 

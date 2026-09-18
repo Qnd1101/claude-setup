@@ -1,7 +1,7 @@
 # 스킬 매니페스트
 
 이 PC의 `~/.claude/skills/`에 실제로 설치된 스킬 전체 목록과 복원 명령. 새 머신에서는 이 파일 순서대로 실행한다.
-갱신 기준일: 2026-09-17.
+갱신 기준일: 2026-09-18.
 
 ## 설치 구조
 
@@ -25,6 +25,8 @@ npx skills@latest add mattpocock/skills -g -y \
 ```
 
 설치 후 Claude Code에서 `/setup-matt-pocock-skills` 실행.
+
+- **플러그인판(`/plugin install mattpocock-skills@mattpocock`)은 쓰지 않는다.** 위 npx 설치본과 스킬이 완전히 겹쳐 같은 이름이 두 번 뜬다. 2026-09-18에 project 스코프로 들어가 있던 플러그인판 1.2.0과 `mattpocock` 마켓플레이스를 제거했다. `/plugin` 목록에 mattpocock이 보이면 중복 설치다.
 
 ## 2. vercel-labs/skills (1개)
 
