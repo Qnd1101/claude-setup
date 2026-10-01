@@ -9,7 +9,6 @@
       "Bash(git push *)"
     ]
   },
-  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "node C:/Users/PC/.claude/hud/omc-hud.mjs"

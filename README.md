@@ -10,7 +10,7 @@ Claude Code 개인 기본 환경을 **한 폴더로 재현**하는 셋업 번들
 | 경로 | 설치 위치 | 용도 |
 |---|---|---|
 | `global-CLAUDE.md` | `~/.claude/CLAUDE.md` | 범용 개인 작업 원칙(언어·최소 diff·git 안전·보안·모델/토큰 규율 등) |
-| `global-settings.json` | `~/.claude/settings.json` | 권한 모드(`bypassPermissions`)·모델·OMC 플러그인·HUD 상태줄 |
+| `global-settings.json` | `~/.claude/settings.json` | 권한 모드(`bypassPermissions`)·deny/ask·OMC 플러그인·HUD 상태줄 |
 | `skills-manifest.md` | — | 이 PC에 설치된 스킬 전체 목록(52개)과 출처별 복원 명령 |
 | `skills/repo-artifact-classify/` | `~/.claude/skills/repo-artifact-classify/` | 저장소 산출물 13분류 스킬 |
 | `skills/work-report/` | `~/.claude/skills/work-report/` | 업무일지·주간보고 작성 규칙(글로벌 CLAUDE.md에서 분리) |
