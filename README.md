@@ -13,6 +13,7 @@ Claude Code 개인 기본 환경을 **한 폴더로 재현**하는 셋업 번들
 | `global-settings.json` | `~/.claude/settings.json` | 권한 모드(`bypassPermissions`)·모델·OMC 플러그인·HUD 상태줄 |
 | `skills-manifest.md` | — | 이 PC에 설치된 스킬 전체 목록(52개)과 출처별 복원 명령 |
 | `skills/repo-artifact-classify/` | `~/.claude/skills/repo-artifact-classify/` | 저장소 산출물 13분류 스킬 |
+| `skills/work-report/` | `~/.claude/skills/work-report/` | 업무일지·주간보고 작성 규칙(글로벌 CLAUDE.md에서 분리) |
 | `skills/<그 외 9개>/` | `~/.claude/skills/<name>/` | upstream에서 삭제된 mattpocock 스킬 보관본(매니페스트 7절) |
 | (외부) oh-my-claudecode | 플러그인 | 멀티에이전트 오케스트레이션 |
 | (외부) mattpocock/skills | 스킬 | 엔지니어링 스킬 모음 |
@@ -62,6 +63,7 @@ git clone https://github.com/Qnd1101/claude-setup.git
 ### 1-b. 글로벌 settings.json
 `global-settings.json` → `~/.claude/settings.json`으로 복사.
 - `permissions.defaultMode: bypassPermissions` + `skipDangerousModePermissionPrompt: true` → `claude`만 입력해도 `--dangerously-skip-permissions`와 같이 동작.
+- `permissions.deny`로 `.env`·`.env.*` 읽기를 막고(`cat` 등 Bash 읽기 포함), `permissions.ask`로 `git push`는 매번 확인받는다. 둘 다 bypass 모드에서도 적용된다(공식 문서 permission-modes).
 - `hooks`는 두지 않는다(이전에 있던 orca 훅은 미사용이라 제거).
 - `statusLine` 경로(`C:/Users/PC/...`)는 머신에 맞게 고친다.
 - 기존 파일이 있으면 덮어쓰기 전 내용을 보여주고 확인받는다.
@@ -75,7 +77,7 @@ Claude Code 안에서:
 - 확인: `/plugin` 목록에 `oh-my-claudecode@omc`, `/autopilot`·`/team` 명령 노출.
 - 이미 설치돼 있으면 `omc-setup` 스킬로 갱신만.
 - **user 스코프 한 번만 설치한다.** 프로젝트 `.claude/settings.json`에 `enabledPlugins`를 넣으면 같은 플러그인이 project 스코프로 한 번 더(다른 버전으로) 설치된다. 2026-09-18에 그렇게 생긴 4.15.7 중복본을 지우고 5.0.0 하나로 맞췄다.
-- OMC 설치 시 `~/.claude/CLAUDE-omc.md`가 자동 생성됨(이 저장소에 포함 안 함).
+- `~/.claude/CLAUDE-omc.md`는 `omc-setup`에서 preserve 모드(기존 CLAUDE.md 유지)를 고를 때만 생긴다. 이 PC는 쓰지 않는다(이 저장소에 포함 안 함).
 
 ### 3. 외부 스킬 (npx skills)
 터미널(셸)에서 **`skills-manifest.md`의 1~6·8·9절 명령을 순서대로 실행**한다. 출처별로 설치할 스킬이 `--skill`로 고정돼 있어 마법사 선택이 필요 없다.
@@ -86,12 +88,13 @@ Claude Code 안에서:
 ### 4. 로컬 스킬
 `skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사(매니페스트 7절).
 - **repo-artifact-classify** — 저장소 산출물 13분류. "산출물 분류 / 이 파일 어디 / 저장소 정리" 요청 시 자동 트리거.
+- **work-report** — 업무일지·주간보고 작성 규칙. "업무일지 써줘 / 주간보고 써줘" 요청 시 트리거.
 - 나머지 8개는 upstream에서 삭제된 mattpocock 스킬 보관본이라 복사로만 복원 가능. `humanizer-ko`는 이름 충돌 때문에 보관(매니페스트 9절).
 
 ### 5. 최종 검증
 - `~/.claude/CLAUDE.md` 존재·내용
 - `/plugin` 목록에 OMC 하나만(user 스코프, mattpocock 플러그인 없음)
-- `ls ~/.claude/skills | wc -l` → 57 (매니페스트 「검증」절)
+- `ls ~/.claude/skills | wc -l` → 58 (매니페스트 「검증」절)
 - 셋업 요약 보고.
 
 ---

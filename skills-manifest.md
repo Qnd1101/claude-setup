@@ -77,13 +77,14 @@ npx skills@latest add anthropics/knowledge-work-plugins --skill documentation -g
 
 README·API 문서·런북·아키텍처 문서·온보딩 가이드의 유형별 필수 구성과 작성 원칙. "write docs / document this / 런북" 요청 시 트리거.
 
-## 7. 이 저장소 `skills/` (10개) — 복사로 설치
+## 7. 이 저장소 `skills/` (11개) — 복사로 설치
 
 `skills/<name>/` → `~/.claude/skills/<name>/` 복사.
 
 | 스킬 | 출처 |
 |---|---|
 | `repo-artifact-classify` | 자체 작성 |
+| `work-report` | 자체 작성. 업무일지·주간보고 규칙(글로벌 CLAUDE.md에서 분리) |
 | `batch-grill-me` | mattpocock/skills 2026-07 설치본. 현재 upstream에서 삭제돼 이 저장소에 보관 |
 | `design-an-interface` | 〃 |
 | `edit-article` | 〃 |
@@ -118,10 +119,10 @@ npx skills@latest add blader/humanizer -g -y
 
 ## 검증
 
-새 세션의 스킬 목록에 위 57개가 모두 보이면 완료.
+새 세션의 스킬 목록에 위 58개가 모두 보이면 완료.
 
 ```bash
-ls ~/.claude/skills | wc -l   # 57
+ls ~/.claude/skills | wc -l   # 58
 ```
 
 ## 갱신 절차

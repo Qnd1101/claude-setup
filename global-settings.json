@@ -1,6 +1,13 @@
 {
   "permissions": {
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "bypassPermissions",
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)"
+    ],
+    "ask": [
+      "Bash(git push *)"
+    ]
   },
   "model": "opus[1m]",
   "statusLine": {
