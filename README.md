@@ -14,6 +14,7 @@ Claude Code 개인 기본 환경을 **한 폴더로 재현**하는 셋업 번들
 | `skills-manifest.md` | — | 이 PC에 설치된 스킬 전체 목록(52개)과 출처별 복원 명령 |
 | `skills/repo-artifact-classify/` | `~/.claude/skills/repo-artifact-classify/` | 저장소 산출물 13분류 스킬 |
 | `skills/work-report/` | `~/.claude/skills/work-report/` | 업무일지·주간보고 작성 규칙(글로벌 CLAUDE.md에서 분리) |
+| `skills/dev-workflow/` | `~/.claude/skills/dev-workflow/` | GitLab 개발 워크플로우(브랜치·MR·AI 리뷰·auto-merge·태그 릴리스) |
 | `skills/<그 외 9개>/` | `~/.claude/skills/<name>/` | upstream에서 삭제된 mattpocock 스킬 보관본(매니페스트 7절) |
 | (외부) oh-my-claudecode | 플러그인 | 멀티에이전트 오케스트레이션 |
 | (외부) mattpocock/skills | 스킬 | 엔지니어링 스킬 모음 |
@@ -63,7 +64,7 @@ git clone https://github.com/Qnd1101/claude-setup.git
 ### 1-b. 글로벌 settings.json
 `global-settings.json` → `~/.claude/settings.json`으로 복사.
 - `permissions.defaultMode: bypassPermissions` + `skipDangerousModePermissionPrompt: true` → `claude`만 입력해도 `--dangerously-skip-permissions`와 같이 동작.
-- `permissions.deny`로 `.env`·`.env.*` 읽기를 막고(`cat` 등 Bash 읽기 포함), `permissions.ask`로 `git push`는 매번 확인받는다. 둘 다 bypass 모드에서도 적용된다(공식 문서 permission-modes).
+- `permissions.deny`로 `.env`·`.env.*` 읽기를 막고(`cat` 등 Bash 읽기 포함), `permissions.ask`로 **릴리스 태그 생성·태그 push·`main` 직접 push·force push**만 확인받는다(2026-10-13: 일반 브랜치 push는 AI가 확인 없이 진행 — `dev-workflow` 스킬의 "사람은 태그만 승인" 결정). 둘 다 bypass 모드에서도 적용된다(공식 문서 permission-modes).
 - `hooks`는 두지 않는다(이전에 있던 orca 훅은 미사용이라 제거).
 - `statusLine` 경로(`C:/Users/PC/...`)는 머신에 맞게 고친다.
 - 기존 파일이 있으면 덮어쓰기 전 내용을 보여주고 확인받는다.
@@ -89,12 +90,13 @@ Claude Code 안에서:
 `skills/` 하위 각 폴더 → `~/.claude/skills/`로 복사(매니페스트 7절).
 - **repo-artifact-classify** — 저장소 산출물 13분류. "산출물 분류 / 이 파일 어디 / 저장소 정리" 요청 시 자동 트리거.
 - **work-report** — 업무일지·주간보고 작성 규칙. "업무일지 써줘 / 주간보고 써줘" 요청 시 트리거.
+- **dev-workflow** — 사내 GitLab 코드 저장소의 이슈→브랜치→MR→AI 리뷰→auto-merge→태그 릴리스 절차. "이슈 #N 처리해 / MR 올려 / 릴리스해" 요청 시 트리거.
 - 나머지 8개는 upstream에서 삭제된 mattpocock 스킬 보관본이라 복사로만 복원 가능. `humanizer-ko`는 이름 충돌 때문에 보관(매니페스트 9절).
 
 ### 5. 최종 검증
 - `~/.claude/CLAUDE.md` 존재·내용
 - `/plugin` 목록에 OMC 하나만(user 스코프, mattpocock 플러그인 없음)
-- `ls ~/.claude/skills | wc -l` → 58 (매니페스트 「검증」절)
+- `ls ~/.claude/skills | wc -l` → 59 (매니페스트 「검증」절)
 - 셋업 요약 보고.
 
 ---

@@ -6,7 +6,17 @@
       "Read(**/.env.*)"
     ],
     "ask": [
-      "Bash(git push *)"
+      "Bash(git tag *)",
+      "Bash(git push * v*)",
+      "Bash(git push *--tags*)",
+      "Bash(git push *--follow-tags*)",
+      "Bash(git push *refs/tags*)",
+      "Bash(glab release *)",
+      "Bash(glab api *tags*)",
+      "Bash(git push * main)",
+      "Bash(git push *:main*)",
+      "Bash(git push *--force*)",
+      "Bash(git push * -f*)"
     ]
   },
   "statusLine": {
