@@ -49,7 +49,8 @@ description: GitLab 코드 저장소에서 개발 작업을 할 때 사용한다
 
 ### 7. 머지
 - MR에 파이프라인(Jenkins 커밋 상태)이 생겼는지 먼저 확인한다: `glab ci status` 또는 `glab mr view <MR>`. 아직 없으면 잠시 후 다시 확인한다 — 파이프라인이 생기기 전에 머지하면 CI 게이트를 건너뛸 수 있다.
-- `glab mr merge <MR> --auto-merge --remove-source-branch` — 파이프라인이 성공하면 GitLab이 머지한다.
+- 저장소에 CI가 연결돼 있지 않으면(Webhook·Jenkins Job 없음) 파이프라인이 끝내 생기지 않고 auto-merge가 즉시 머지한다. 이때는 로컬 검증 결과에만 기대어 머지된 것이므로 완료 보고에 "CI 미연결 — 로컬 검증만"이라고 밝힌다.
+- `glab mr merge <MR> --auto-merge --remove-source-branch --yes` — 파이프라인이 성공하면 GitLab이 머지한다. `--yes`가 없으면 확인 질문에서 멈춘다.
 - `--auto-merge=false`로 즉시 머지하지 않는다. squash·rebase 옵션을 쓰지 않는다(CHANGELOG 초안이 머지 커밋을 읽는다).
 - 머지 후 이슈는 `Closes #N`으로 자동으로 닫힌다. 손으로 닫지 않는다.
 
@@ -70,4 +71,4 @@ description: GitLab 코드 저장소에서 개발 작업을 할 때 사용한다
 
 ## 완료 보고
 
-MR 링크, 리뷰 판정, 파이프라인 결과, 닫힌 이슈 번호를 짧게 보고한다. 릴리스면 태그·Jenkins 빌드 번호·JFrog 경로를 더한다.
+MR 링크, 리뷰 판정, 파이프라인 결과(CI 미연결이면 그 사실), 닫힌 이슈 번호를 짧게 보고한다. 릴리스면 태그·Jenkins 빌드 번호·JFrog 경로를 더한다.
